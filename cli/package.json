@@ -1,0 +1,17 @@
+{
+  "name": "strata-cli",
+  "version": "0.1.0",
+  "description": "A redis-cli-style REPL client for strata, speaking raw RESP over TCP",
+  "bin": {
+    "strata-cli": "dist/index.js"
+  },
+  "scripts": {
+    "dev": "ts-node-dev --transpile-only src/index.ts",
+    "build": "tsc -p tsconfig.json"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0",
+    "ts-node-dev": "^2.0.0",
+    "@types/node": "^20.14.0"
+  }
+}

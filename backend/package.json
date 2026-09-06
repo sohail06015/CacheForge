@@ -1,0 +1,21 @@
+{
+  "name": "strata-backend",
+  "version": "0.1.0",
+  "description": "The strata storage engine - TCP server speaking the RESP protocol, plus an HTTP/WS API for the dashboard",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
+    "test": "node tests/run.js"
+  },
+  "dependencies": {
+    "ws": "^8.17.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0",
+    "ts-node-dev": "^2.0.0",
+    "@types/node": "^20.14.0",
+    "@types/ws": "^8.5.10"
+  }
+}

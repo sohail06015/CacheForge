@@ -1,0 +1,16 @@
+{
+  "name": "strata",
+  "private": true,
+  "version": "0.1.0",
+  "description": "strata - a Redis-compatible in-memory data store with time-travel keys, built from scratch",
+  "workspaces": [
+    "backend",
+    "cli",
+    "frontend"
+  ],
+  "scripts": {
+    "dev:backend": "npm run dev -w backend",
+    "dev:cli": "npm run dev -w cli",
+    "dev:frontend": "npm run dev -w frontend"
+  }
+}
