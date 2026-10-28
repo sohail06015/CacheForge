@@ -1,9 +1,9 @@
 {
-  "name": "strata-cli",
+  "name": "cacheforge-cli",
   "version": "0.1.0",
-  "description": "A redis-cli-style REPL client for strata, speaking raw RESP over TCP",
+  "description": "A redis-cli-style REPL client for CacheForge, speaking raw RESP over TCP",
   "bin": {
-    "strata-cli": "dist/index.js"
+    "cacheforge-cli": "dist/index.js"
   },
   "scripts": {
     "dev": "ts-node-dev --transpile-only src/index.ts",

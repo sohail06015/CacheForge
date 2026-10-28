@@ -1,12 +1,12 @@
 /**
- * Seeds strata with sample data across all five types so you have something
+ * Seeds CacheForge with sample data across all five types so you have something
  * to look at in the dashboard immediately.
  *
  * Usage:  node scripts/seed.js        (make sure the backend is running first)
  *
  * This deliberately uses zero dependencies and speaks raw RESP over a plain
  * TCP socket - it doubles as the smallest possible example of how to write
- * a strata client in any language.
+ * a CacheForge client in any language.
  */
 const net = require("net");
 
@@ -44,7 +44,7 @@ const socket = net.connect(PORT, HOST, () => {
   socket.write(cmd("ZADD", "board", "250", "bob"));
 
   setTimeout(() => {
-    console.log("Seeded strata with sample data.");
+    console.log("Seeded CacheForge with sample data.");
     console.log("Click 'user:1' in the dashboard to see what it invalidates.");
     console.log("Then run:  SET user:1 bob   - both caches vanish automatically.");
     socket.end();
@@ -53,7 +53,7 @@ const socket = net.connect(PORT, HOST, () => {
 });
 
 socket.on("error", (err) => {
-  console.error(`Could not reach strata at ${HOST}:${PORT} - is the backend running?`);
+  console.error(`Could not reach CacheForge at ${HOST}:${PORT} - is the backend running?`);
   console.error(err.message);
   process.exit(1);
 });

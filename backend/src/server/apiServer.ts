@@ -41,7 +41,7 @@ export function startApiServer(store: Store, pubsub: PubSub, port = 8080) {
       // looks broken to anyone opening the deployed link with no context.
       if (parts.length === 0) {
         return json({
-          service: "strata",
+          service: "cacheforge",
           description:
             "In-memory key-value engine with automatic cache invalidation via a dependency graph",
           status: "ok",
@@ -191,7 +191,7 @@ export function startApiServer(store: Store, pubsub: PubSub, port = 8080) {
   tick.unref();
 
   server.listen(port, () => {
-    console.log(`[strata] Dashboard API listening on http://localhost:${port}`);
+    console.log(`[CacheForge] Dashboard API listening on http://localhost:${port}`);
   });
 
   return server;

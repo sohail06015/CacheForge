@@ -1,8 +1,8 @@
 {
-  "name": "strata-frontend",
+  "name": "cacheforge-frontend",
   "private": true,
   "version": "0.1.0",
-  "description": "strata Dashboard - browse keys, watch live stats, and time-travel through key history",
+  "description": "CacheForge Dashboard - browse keys, watch live stats, and time-travel through key history",
   "type": "module",
   "scripts": {
     "dev": "vite",

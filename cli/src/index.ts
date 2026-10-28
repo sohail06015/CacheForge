@@ -14,7 +14,7 @@ const host = process.argv[2] ?? "127.0.0.1";
 const port = Number(process.argv[3] ?? 6380);
 
 const socket = net.connect(port, host, () => {
-  console.log(`Connected to strata at ${host}:${port}. Type HELP for a command list, or exit to quit.`);
+  console.log(`Connected to CacheForge at ${host}:${port}. Type HELP for a command list, or exit to quit.`);
   promptNext();
 });
 
@@ -106,7 +106,7 @@ rl.on("close", () => {
 
 function promptNext() {
   if (closed) return;
-  rl.question(`strata ${host}:${port}> `, (line) => {
+  rl.question(`cacheforge ${host}:${port}> `, (line) => {
     const trimmed = line.trim();
     if (trimmed.toLowerCase() === "exit" || trimmed.toLowerCase() === "quit") {
       socket.end();

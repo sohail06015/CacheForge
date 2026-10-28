@@ -16,7 +16,7 @@ interface Line {
  */
 export function CommandConsole({ onMutate }: { onMutate: () => void }) {
   const [lines, setLines] = useState<Line[]>([
-    { kind: "output", text: "strata console. Try: SET greeting \"hello world\"" },
+    { kind: "output", text: "CacheForge console. Try: SET greeting \"hello world\"" },
   ]);
   const [input, setInput] = useState("");
   const [history, setHistory] = useState<string[]>([]);

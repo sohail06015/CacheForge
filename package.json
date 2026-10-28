@@ -1,8 +1,8 @@
 {
-  "name": "strata",
+  "name": "cacheforge",
   "private": true,
   "version": "0.1.0",
-  "description": "strata - a Redis-compatible in-memory data store with time-travel keys, built from scratch",
+  "description": "CacheForge - a Redis-compatible in-memory data store with time-travel keys, built from scratch",
   "workspaces": [
     "backend",
     "cli",

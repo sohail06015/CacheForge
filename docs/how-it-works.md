@@ -1,9 +1,9 @@
-# How strata actually works
+# How CacheForge actually works
 
 This walks through everything that happens for a single command, so you can
 explain any piece of it in your own words.
 
-## The journey of `SET name strata`
+## The journey of `SET name cacheforge`
 
 ### 1. It starts as bytes on a socket
 
@@ -12,7 +12,7 @@ command is encoded as **RESP** (REdis Serialization Protocol) before it ever
 touches the network:
 
 ```
-*3\r\n$3\r\nSET\r\n$4\r\nname\r\n$6\r\nstrata\r\n
+*3\r\n$3\r\nSET\r\n$4\r\nname\r\n$9\r\ncacheforge\r\n
 ```
 
 Breaking that down:
@@ -20,10 +20,10 @@ Breaking that down:
 - `*3` — "an array of 3 elements follows" (the command + its 2 arguments)
 - `$3\r\nSET\r\n` — "a bulk string of length 3: SET"
 - `$4\r\nname\r\n` — "a bulk string of length 4: name"
-- `$6\r\nstrata\r\n` — "a bulk string of length 6: strata"
+- `$9\r\ncacheforge\r\n` — "a bulk string of length 9: cacheforge"
 
 This is deliberately simple to parse — no nested brackets to balance, no
-quoting rules — which is part of why Redis (and strata) can process huge
+quoting rules — which is part of why Redis (and CacheForge) can process huge
 numbers of commands per second. See `backend/src/protocol/resp.ts`.
 
 ### 2. The TCP server buffers and parses it
@@ -40,7 +40,7 @@ multiple commands are sitting in the buffer at once.
 
 Before touching the store, the server checks if this is a _write_ command
 (`SET`, `DEL`, `LPUSH`, etc. — see `WRITE_COMMANDS` in `tcpServer.ts`) and,
-if so, appends it to `backend/data/strata.aof` first. This ordering matters:
+if so, appends it to `backend/data/cacheforge.aof` first. This ordering matters:
 if the process crashes right after applying the write but before logging
 it, that write would be lost on restart. Logging first (at the cost of a
 tiny bit of latency) guarantees durability. This is the same idea as
@@ -49,7 +49,7 @@ tiny bit of latency) guarantees durability. This is the same idea as
 ### 4. The command dispatcher runs it
 
 `backend/src/commands/index.ts` looks up `SET` in a table of handler
-functions and calls it with `["name", "strata"]`. This table pattern (name
+functions and calls it with `["name", "cacheforge"]`. This table pattern (name
 → function) is exactly how real Redis's `server.c` command table works
 internally — it's a simple, extensible way to add new verbs.
 
@@ -75,7 +75,7 @@ that and shows you `OK`.
 
 ## Why expiry has two mechanisms
 
-Real Redis — and strata — check for expired keys in two ways:
+Real Redis — and CacheForge — check for expired keys in two ways:
 
 - **Lazy expiration**: whenever a key is _read_ (`GET`, `EXISTS`, etc.), we
   first check if its `expireAt` has passed and delete it right then. This
@@ -96,7 +96,7 @@ feature to build yourself.
 
 ## Where to go next
 
-Ideas for extending strata, roughly in order of difficulty:
+Ideas for extending CacheForge, roughly in order of difficulty:
 
 1. **`MULTI`/`EXEC` transactions** — queue commands, then run them
    atomically as a batch.
@@ -106,7 +106,7 @@ Ideas for extending strata, roughly in order of difficulty:
 3. **Secondary indexes** — let `HSET` on hashes with the same "shape"
    register into a queryable index, so you could `FIND WHERE field = value`
    across many keys, like a light document database.
-4. **Replication** — a second strata instance connects to the first,
+4. **Replication** — a second CacheForge instance connects to the first,
    receives a live stream of every write, and stays in sync. This is the
    single most educational feature to build, since it forces you to think
    hard about ordering, network partitions, and consistency.

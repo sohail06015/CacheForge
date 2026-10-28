@@ -6,7 +6,7 @@ dist/
 build/
 *.tsbuildinfo
 
-# strata runtime data - the AOF log the engine writes.
+# CacheForge runtime data - the AOF log the engine writes.
 # Local state, not source. Committing it would push your test keys
 # to GitHub and cause a conflict on every pull.
 data/
@@ -17,7 +17,7 @@ data/
 .test-data/
 
 # Environment / secrets
-# strata_PASSWORD lives here if you set one - never commit it.
+# cacheforge_PASSWORD lives here if you set one - never commit it.
 .env
 .env.local
 .env.*.local
@@ -38,3 +38,5 @@ yarn-error.log*
 .DS_Store
 Thumbs.db
 desktop.ini
+
+babel.json

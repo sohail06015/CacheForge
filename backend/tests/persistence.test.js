@@ -1,6 +1,6 @@
 const net=require('net'),{spawn}=require('child_process'),os=require('os'),pathm=require('path');
 // os.tmpdir() rather than a hardcoded /tmp - Windows has no /tmp.
-const DATA=pathm.join(os.tmpdir(),'strata-persist');
+const DATA=pathm.join(os.tmpdir(),'cacheforge-persist');
 const enc=(...a)=>`*${a.length}\r\n`+a.map(x=>`$${Buffer.byteLength(x)}\r\n${x}\r\n`).join('');
 let F=0,P=0;
 const ck=(n,g,w)=>{const a=JSON.stringify(g),b=JSON.stringify(w);if(a===b)P++;else{F++;console.log(`FAIL ${n}: got ${a} want ${b}`)}};
@@ -11,7 +11,7 @@ if(t==='$'){const n=Number(l);if(n===-1){buf=buf.slice(e+2);return null}const s=
 if(t==='*'){const n=Number(l);if(n===-1){buf=buf.slice(e+2);return null}const sv=buf;buf=buf.slice(e+2);const it=[];for(let i=0;i<n;i++){const x=parse();if(x===undefined){buf=sv;return undefined}it.push(x)}return it}return undefined}
 c.on('data',d=>{buf+=d;while(buf.length){const b=buf;const p=parse();if(p===undefined){buf=b;break}const w=waiters.shift();if(w)w(p)}});
 c.on('connect',()=>res({send:(...a)=>new Promise(r=>{waiters.push(r);c.write(enc(...a))}),close:()=>c.destroy()}));});}
-function start(){return new Promise((res,rej)=>{const p=spawn(process.execPath,['dist/index.js'],{cwd:require('path').join(__dirname,'..'),env:{...process.env,strata_DATA_DIR:DATA,strata_PORT:'6398',strata_API_PORT:'8098'}});let o='';
+function start(){return new Promise((res,rej)=>{const p=spawn(process.execPath,['dist/index.js'],{cwd:require('path').join(__dirname,'..'),env:{...process.env,cacheforge_DATA_DIR:DATA,cacheforge_PORT:'6398',cacheforge_API_PORT:'8098'}});let o='';
 const t=setTimeout(()=>rej(new Error('timeout '+o)),15000);
 p.stdout.on('data',d=>{o+=d;if(o.includes('Dashboard API listening')){clearTimeout(t);res(p)}});p.stderr.on('data',d=>o+=d);});}
 (async()=>{

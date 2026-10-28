@@ -52,9 +52,9 @@ function startServer(dataDir) {
     cwd: BACKEND,
     env: {
       ...process.env,
-      strata_DATA_DIR: dataDir,
-      strata_PORT: String(PORT),
-      strata_API_PORT: String(API_PORT),
+      cacheforge_DATA_DIR: dataDir,
+      cacheforge_PORT: String(PORT),
+      cacheforge_API_PORT: String(API_PORT),
     },
     stdio: "ignore",
   });
@@ -90,7 +90,7 @@ async function main() {
     ["dependency graph", "depgraph.test.js"],
   ]) {
     console.log(`\n=== ${label} ===`);
-    const dataDir = tmp(`strata-test-${label.replace("/", "")}`);
+    const dataDir = tmp(`cacheforge-test-${label.replace("/", "")}`);
     const server = startServer(dataDir);
     try {
       await waitForPort(PORT);
@@ -112,9 +112,9 @@ async function main() {
   if (!runTest("depgraph-persist.test.js")) allPassed = false;
 
   console.log("\n=== persistence ===");
-  rmrf(tmp("strata-persist"));
+  rmrf(tmp("cacheforge-persist"));
   if (!runTest("persistence.test.js")) allPassed = false;
-  rmrf(tmp("strata-persist"));
+  rmrf(tmp("cacheforge-persist"));
 
   // --- Skip list unit tests (TypeScript, run via ts-node) ---
   console.log("\n=== skiplist ===");

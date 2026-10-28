@@ -140,7 +140,7 @@ export function startTcpServer(
   });
 
   server.listen(port, () => {
-    console.log(`[strata] RESP server listening on port ${port} (try: redis-cli -p ${port})`);
+    console.log(`[CacheForge] RESP server listening on port ${port} (try: redis-cli -p ${port})`);
   });
 
   return server;

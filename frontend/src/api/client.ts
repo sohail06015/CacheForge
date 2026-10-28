@@ -9,7 +9,7 @@
  *
  * In production there is no proxy, so the deployed frontend has to name the
  * backend explicitly. Set VITE_API_BASE at build time, e.g.
- *     VITE_API_BASE=https://strata.onrender.com
+ *     VITE_API_BASE=https://cacheforge.onrender.com
  *
  * Trailing slashes are stripped so "https://x.com/" and "https://x.com"
  * both produce the same URLs.

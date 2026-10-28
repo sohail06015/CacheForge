@@ -30,7 +30,11 @@ export class AofLog {
   constructor(dir = "./data") {
     this.dir = dir;
     fs.mkdirSync(dir, { recursive: true });
-    this.filePath = path.join(dir, "strata.aof");
+    this.filePath = path.join(dir, "cacheforge.aof");
+    const legacyPath = path.join(dir, "strata.aof");
+    if (!fs.existsSync(this.filePath) && fs.existsSync(legacyPath)) {
+      fs.renameSync(legacyPath, this.filePath);
+    }
     this.stream = fs.createWriteStream(this.filePath, { flags: "a" });
   }
 

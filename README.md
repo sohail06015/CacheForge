@@ -1,8 +1,8 @@
-# strata
+# CacheForge
 
 An in-memory key-value database engine built from scratch in TypeScript. Redis-compatible on the wire, plus one thing Redis doesn't have: an **automatic cache invalidation graph**.
 
-Declare that a cached key is derived from other keys, and strata deletes it for you whenever any source changes — transitively. Redis has no concept of a relationship between keys, so that bookkeeping normally lives in application code, where forgetting one line means serving stale data silently.
+Declare that a cached key is derived from other keys, and CacheForge deletes it for you whenever any source changes — transitively. Redis has no concept of a relationship between keys, so that bookkeeping normally lives in application code, where forgetting one line means serving stale data silently.
 
 ```
 SET user:1 alice
@@ -55,7 +55,7 @@ The third terminal is now free for the CLI:
 npm run dev:cli
 ```
 
-Because strata speaks real RESP, the actual `redis-cli` works too:
+Because CacheForge speaks real RESP, the actual `redis-cli` works too:
 
 ```bash
 redis-cli -p 6380 SET user:1 alice
@@ -93,7 +93,7 @@ Three separate programs that agree on protocols, not on code:
 ┌──────────────┐   RESP over TCP    ┌─────────────────────────┐
 │  CLI client  │ ─────────────────► │                         │
 └──────────────┘      :6380         │                         │
-                                    │      strata engine      │
+                                    │    CacheForge engine    │
 ┌──────────────┐                    │                         │
 │ redis-cli /  │ ─────────────────► │   ┌─────────────────┐   │
 │ any client   │      :6380         │   │  Store (Map)    │   │
@@ -271,10 +271,10 @@ This is a deliberate contrast with value-snapshot approaches (an earlier version
 
 ### Reacting to invalidation
 
-Events publish to the reserved channel `__strata:invalidate`, so applications can warm a new value or record a metric without polling:
+Events publish to the reserved channel `__cacheforge:invalidate`, so applications can warm a new value or record a metric without polling:
 
 ```
-SUBSCRIBE __strata:invalidate
+SUBSCRIBE __cacheforge:invalidate
 ```
 
 ---
@@ -292,8 +292,8 @@ Environment variables:
 
 | Key               | Value                                     |
 | ----------------- | ----------------------------------------- |
-| `strata_PASSWORD` | a strong password — the service is public |
-| `strata_DATA_DIR` | `/tmp/strata`                             |
+| `cacheforge_PASSWORD` | a strong password — the service is public |
+| `cacheforge_DATA_DIR` | `/tmp/cacheforge`                       |
 
 The server reads `PORT` first, which is how Render (and most PaaS hosts)
 assign a port.
@@ -353,7 +353,7 @@ forwards `/api` to port 8080, so leave it unset. See `frontend/.env.example`.
 | `GRAPH` | Every declared edge |
 
 **Auth**
-`AUTH` — only when `strata_PASSWORD` is set.
+`AUTH` — only when `cacheforge_PASSWORD` is set.
 
 > Values containing spaces need quotes: `SET msg "hello world"`
 
@@ -363,10 +363,10 @@ forwards `/api` to port 8080, so leave it unset. See `frontend/.env.example`.
 
 | Variable          | Default  | Purpose                           |
 | ----------------- | -------- | --------------------------------- |
-| `strata_PORT`     | `6380`   | RESP/TCP port                     |
-| `strata_API_PORT` | `8080`   | Dashboard HTTP + WebSocket port   |
-| `strata_DATA_DIR` | `./data` | Where the AOF log lives           |
-| `strata_PASSWORD` | unset    | If set, clients must `AUTH` first |
+| `cacheforge_PORT`     | `6380`   | RESP/TCP port                     |
+| `cacheforge_API_PORT` | `8080`   | Dashboard HTTP + WebSocket port   |
+| `cacheforge_DATA_DIR` | `./data` | Where the AOF log lives           |
+| `cacheforge_PASSWORD` | unset    | If set, clients must `AUTH` first |
 
 ---
 
@@ -395,7 +395,7 @@ Five suites, all driving a real server over a real socket rather than reaching i
 ## Project layout
 
 ```
-strata/
+cacheforge/
 ├── backend/
 │   ├── src/
 │   │   ├── core/store.ts             the database

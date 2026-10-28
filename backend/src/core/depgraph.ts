@@ -1,5 +1,5 @@
 /**
- * The dependency graph: strata's answer to cache invalidation.
+ * The dependency graph: CacheForge's answer to cache invalidation.
  *
  * THE PROBLEM
  * In Redis, derived data has no link to what it was derived from. If you

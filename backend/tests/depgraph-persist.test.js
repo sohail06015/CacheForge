@@ -1,6 +1,6 @@
 // Exercises replay in-process: no sockets, no child processes.
 const os=require('os'),pathm=require('path');
-const DATA=pathm.join(os.tmpdir(),'strata-deppersist');
+const DATA=pathm.join(os.tmpdir(),'cacheforge-deppersist');
 const {Store}=require('../dist/core/store');
 const {AofLog}=require('../dist/persistence/aof');
 const {dispatch}=require('../dist/commands');

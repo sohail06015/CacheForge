@@ -1,4 +1,4 @@
-// Every value strata can store is tagged with a type, exactly like real Redis does.
+// Every value CacheForge can store is tagged with a type, exactly like real Redis does.
 // This lets us reject wrong-type operations (e.g. LPUSH on a string) with a clear error,
 // and lets the dashboard show a "type" badge next to every key.
 export type NovaType = "string" | "list" | "hash" | "set" | "zset";

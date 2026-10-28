@@ -1,7 +1,7 @@
 {
-  "name": "strata-backend",
+  "name": "cacheforge-backend",
   "version": "0.1.0",
-  "description": "The strata storage engine - TCP server speaking the RESP protocol, plus an HTTP/WS API for the dashboard",
+  "description": "The CacheForge storage engine - TCP server speaking the RESP protocol, plus an HTTP/WS API for the dashboard",
   "main": "dist/index.js",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",

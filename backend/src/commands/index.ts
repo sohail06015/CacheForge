@@ -52,7 +52,7 @@ export const commandTable: Record<string, Handler> = {
     return Resp.bulk(
       [
         "# Server",
-        "strata_version:1.0.0",
+        "cacheforge_version:1.0.0",
         `uptime_in_seconds:${Math.floor((Date.now() - s.startedAt) / 1000)}`,
         "# Stats",
         `total_commands_processed:${s.commandsProcessed}`,
@@ -207,7 +207,7 @@ export const commandTable: Record<string, Handler> = {
     return Resp.array(out);
   },
 
-  // ---- strata: cache dependency graph ----
+  // ---- CacheForge: cache dependency graph ----
 
   /** DEPEND <derived> <source...> - declare what a cached key is built from. */
   DEPEND: (store, args) => {

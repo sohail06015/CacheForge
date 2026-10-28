@@ -29,7 +29,7 @@ export function Sidebar({
   return (
     <div className="sidebar">
       <div className="brand">
-        <div className="brand-title">strata://</div>
+        <div className="brand-title">cacheforge://</div>
         <div className="brand-sub">
           <span className={`pulse-dot ${connected ? "" : "offline"}`} />
           {!connected
